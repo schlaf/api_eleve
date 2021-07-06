@@ -1,0 +1,49 @@
+
+// creation eleve
+curl -i -X POST -H "Content-Type: application/json" -d '{"nom":"chazette", "prenom":"sylvie", "dateNaissance" : "24-12-1965"}' http://localhost:8080/eleve/new
+curl -i -X POST -H "Content-Type: application/json" -d '{"nom":"tissot", "prenom":"vincent", "dateNaissance" : "28-04-1983"}' http://localhost:8080/eleve/new
+curl -i -X POST -H "Content-Type: application/json" -d '{"nom":"perrin", "prenom":"emilie", "dateNaissance" : "10-08-1987"}' http://localhost:8080/eleve/new
+curl -i -X POST -H "Content-Type: application/json" -d '{"nom":"hanso", "prenom":"marie", "dateNaissance" : "04-08-1953"}' http://localhost:8080/eleve/new
+
+// with error nom null
+curl -i -X POST -H "Content-Type: application/json" -d '{"nom":null, "prenom":"sylvie", "dateNaissance" : "24-12-1965"}' http://localhost:8080/eleve/new
+
+
+// with error nom trop long
+curl -i -X POST -H "Content-Type: application/json" -d '{"nom":"qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds ", "prenom":"sylvie", "dateNaissance" : "24-12-1965"}' http://localhost:8080/eleve/new
+
+// with error prenom null
+curl -i -X POST -H "Content-Type: application/json" -d '{"nom":"qdsfqdfqsdfqdfq", "dateNaissance" : "24-12-1965"}' http://localhost:8080/eleve/new
+
+// with error date
+curl -i -X POST -H "Content-Type: application/json" -d '{"nom":"hanso", "prenom":"marie", "dateNaissance" : "04-08-xxx"}' http://localhost:8080/eleve/new
+
+
+
+// combined errors
+curl -i -X POST -H "Content-Type: application/json" -d '{"nom":"qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds qdsfqdfqsdfqdfqfds ", "dateNaissance" : "24-12-1965"}' http://localhost:8080/eleve/new
+
+
+// récupération de la liste des élèves (non demandé, mais pratique)
+curl -i -X POST -H "Content-Type: application/json" http://localhost:8080/eleve/list
+
+
+// mise à jour
+curl -i -X POST -H "Content-Type: application/json" -d '{"id" : 2 , "nom":"martinot", "prenom":"josiane", "dateNaissance" : "24-12-1970"}' http://localhost:8080/eleve/update
+
+// suppression
+curl -i -X POST -H "Content-Type: application/json" -d '{"id": 3}' http://localhost:8080/eleve/delete
+
+// ajout d'une note
+curl -i -X POST -H "Content-Type: application/json" -d '{"id" : 1 , "matiere":"maths", "valeur":14}' http://localhost:8080/eleve/addNote
+curl -i -X POST -H "Content-Type: application/json" -d '{"id" : 1 , "matiere":"geo", "valeur":11}' http://localhost:8080/eleve/addNote
+curl -i -X POST -H "Content-Type: application/json" -d '{"id" : 1 , "matiere":"histoire", "valeur":9}' http://localhost:8080/eleve/addNote
+curl -i -X POST -H "Content-Type: application/json" -d '{"id" : 4 , "matiere":"histoire", "valeur":5}' http://localhost:8080/eleve/addNote
+
+// moyenne d'un élève
+curl -i -X POST -H "Content-Type: application/json" -d '{"id" : 1 }' http://localhost:8080/eleve/moyenneEleve
+
+// moyenne générale
+curl -i -X POST -H "Content-Type: application/json" http://localhost:8080/eleve/moyenneGenerale
+
+
